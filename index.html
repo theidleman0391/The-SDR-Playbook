@@ -262,14 +262,16 @@ body{
 @media(prefers-reduced-motion:reduce){.fade-in{transition:none !important}.flip-inner{transition:none !important}}
 
 /* ========== NAV ========== */
+:root{ --nav-h: 60px; }
 nav.top{
   position:sticky;top:0;z-index:50;
-  background:rgba(244,239,230,.72);
+  background:rgba(244,239,230,.95);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   display:flex;justify-content:space-between;align-items:center;
-  padding:.9rem 2rem;gap:1.5rem;
+  padding:.85rem 2rem;gap:1.5rem;
+  min-height:var(--nav-h);
 }
 nav.top .logo{font-family:'Fraunces',serif;font-weight:900;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.6rem;flex-shrink:0;color:var(--ink);text-decoration:none}
 nav.top .logo:hover{color:var(--rust)}
@@ -336,40 +338,102 @@ nav.top .cta-btn .spark{color:var(--gold);animation:blink 2s infinite}
 nav.top .cta-btn:hover .spark{color:var(--paper)}
 
 /* Mobile burger */
-nav.top .burger{display:none;background:none;border:none;cursor:pointer;padding:.4rem;flex-direction:column;gap:5px}
-nav.top .burger span{width:22px;height:2px;background:var(--ink);transition:all .25s}
+nav.top .burger{
+  display:none;background:none;border:1px solid var(--line-strong);
+  cursor:pointer;padding:.45rem .5rem;
+  flex-direction:column;justify-content:center;gap:5px;
+  flex-shrink:0;border-radius:2px;
+  width:38px;height:38px;
+}
+nav.top .burger span{width:20px;height:2px;background:var(--ink);transition:all .28s cubic-bezier(.4,0,.2,1);display:block;margin:0 auto}
 nav.top .burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-nav.top .burger.open span:nth-child(2){opacity:0}
+nav.top .burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 nav.top .burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
 
+@keyframes mobileMenuIn{
+  from{opacity:0;transform:translateY(-8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
 @media(max-width:980px){
+  nav.top{
+    padding:.7rem 1.1rem;
+    background:var(--paper); /* solid — no bleed-through */
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  /* Hide CTA & desktop menu completely */
+  nav.top .cta-btn{ display:none !important; }
   nav.top ul.menu{
-    position:fixed;top:60px;left:0;right:0;
+    /* HIDDEN: completely removed from rendering */
+    display:none;
+    /* when .open: fixed panel below the nav */
+    position:fixed;
+    top:var(--nav-h);left:0;right:0;
     background:var(--paper);
-    flex-direction:column;align-items:stretch;
-    padding:1.5rem 2rem;gap:.4rem;
-    border-bottom:1px solid var(--ink);
-    box-shadow:var(--shadow);
-    transform:translateY(-110%);transition:transform .3s;
-    max-height:calc(100vh - 60px);overflow-y:auto;
+    flex-direction:column;
+    align-items:stretch;
+    padding:0;
+    gap:0;
+    border-top:2px solid var(--ink);
+    border-bottom:2px solid var(--ink);
+    box-shadow:0 12px 32px -8px rgba(14,15,12,.28);
+    max-height:calc(100dvh - var(--nav-h));
+    overflow-y:auto;
+    z-index:200;
   }
-  nav.top ul.menu.open{transform:translateY(0)}
-  nav.top ul.menu > li{width:100%;border-bottom:1px dashed var(--line)}
+  nav.top ul.menu.open{
+    display:flex;
+    animation:mobileMenuIn .22s cubic-bezier(.4,0,.2,1) forwards;
+  }
+  nav.top ul.menu > li{
+    width:100%;
+    border-bottom:1px solid var(--line);
+    margin:0;
+    padding:0;
+  }
   nav.top ul.menu > li:last-child{border-bottom:none}
-  nav.top ul.menu > li > a, nav.top ul.menu > li > .nav-trigger{padding:.7rem 0;width:100%;justify-content:space-between}
-  nav.top .submenu{
-    position:static;opacity:1;visibility:visible;transform:none;
-    background:transparent;color:var(--ink);
-    border:none;box-shadow:none;
-    padding:0 0 .6rem 1rem;display:none;
-    min-width:auto;
+  nav.top ul.menu > li > a,
+  nav.top ul.menu > li > .nav-trigger{
+    padding:1rem 1.4rem;
+    width:100%;
+    justify-content:space-between;
+    font-size:.82rem;
+    display:flex;
+    align-items:center;
   }
-  nav.top .submenu::before{display:none}
+  nav.top ul.menu > li > a::after{display:none}
+  nav.top .submenu{
+    position:static !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    transform:none !important;
+    background:var(--paper-2);
+    color:var(--ink);
+    border:none;
+    border-top:1px dashed var(--line);
+    box-shadow:none;
+    display:none;
+    padding:.5rem 0 .8rem 0;
+    min-width:auto;
+    list-style:none;
+  }
+  nav.top .submenu::before{display:none !important}
   nav.top ul.menu > li.has-sub.open .submenu{display:block}
-  nav.top .submenu a{color:var(--ink);padding:.5rem 0;font-size:.7rem}
-  nav.top .submenu a:hover{background:transparent;color:var(--rust);border-left-color:transparent}
+  nav.top .submenu a{
+    color:var(--ink);
+    padding:.6rem 1.4rem .6rem 2.2rem;
+    font-size:.74rem;
+    border-left:none;
+    display:flex;
+    justify-content:space-between;
+  }
+  nav.top .submenu a:hover{
+    background:rgba(194,65,42,.07);
+    color:var(--rust);
+    border-left-color:transparent;
+  }
   nav.top .burger{display:flex}
-  nav.top .cta-btn{padding:.45rem .8rem;font-size:.65rem}
 }
 
 /* ========== HERO ========== */
@@ -378,6 +442,9 @@ header.hero{
   max-width:1300px;
   margin:0 auto;
   position:relative;
+}
+@media(max-width:980px){
+  header.hero{padding:2.2rem 1.2rem 2rem}
 }
 .hero-meta{
   display:flex;justify-content:space-between;
@@ -476,10 +543,21 @@ section{
 .role-grid h3{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;letter-spacing:-.02em;margin-bottom:1rem}
 .role-grid p{font-size:1rem;margin-bottom:1rem}
 .role-grid ul{list-style:none;font-family:'JetBrains Mono',monospace;font-size:.85rem}
-.role-grid ul li{padding:.45rem 0;border-bottom:1px dashed rgba(244,239,230,.2);display:flex;justify-content:space-between}
-.role-grid ul li::before{content:'→';margin-right:.5rem;color:var(--gold)}
-.role-grid ul li span:last-child{color:var(--gold)}
-@media(max-width:780px){.role-grid{grid-template-columns:1fr}.role-grid > div{border-right:none;border-bottom:1px solid var(--line)}}
+.role-grid ul li{
+  padding:.45rem 0;border-bottom:1px dashed rgba(244,239,230,.2);
+  display:grid;grid-template-columns:1fr auto;
+  gap:.5rem 1rem;align-items:baseline;
+}
+.role-grid ul li::before{content:'→';color:var(--gold);grid-column:1;display:inline;margin-right:.35rem}
+.role-grid ul li span:first-child{color:rgba(244,239,230,.75);word-break:break-word}
+.role-grid ul li span:last-child{color:var(--gold);text-align:right;white-space:nowrap}
+@media(max-width:780px){
+  .role-grid{grid-template-columns:1fr}
+  .role-grid > div{border-right:none;border-bottom:1px solid var(--line)}
+  .role-grid ul{font-size:.78rem}
+  .role-grid ul li{grid-template-columns:1fr 1fr;gap:.3rem .8rem}
+  .role-grid ul li span:last-child{white-space:normal;text-align:right}
+}
 
 /* TOGGLE: SDR vs BDR vs AE */
 .role-compare{margin-top:2rem}
@@ -3003,21 +3081,43 @@ document.querySelectorAll('section').forEach(s=>{
 const navMenu = document.getElementById('nav-menu');
 const navBurger = document.getElementById('nav-burger');
 
+// Sync --nav-h CSS variable to actual nav height so the dropdown lands correctly
+function syncNavHeight(){
+  const nav = document.querySelector('nav.top');
+  if(nav){
+    document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+  }
+}
+syncNavHeight();
+window.addEventListener('resize', syncNavHeight);
+
+// Helper: close the mobile menu fully
+function closeMobileMenu(){
+  navMenu.classList.remove('open');
+  navBurger.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+  navBurger.setAttribute('aria-label', 'Open navigation menu');
+  document.querySelectorAll('nav.top li.has-sub.open').forEach(li => li.classList.remove('open'));
+  document.body.style.overflow = '';
+}
+
 // Mobile burger toggle
 navBurger.addEventListener('click', ()=>{
   const isOpen = navMenu.classList.toggle('open');
   navBurger.classList.toggle('open');
   navBurger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   navBurger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+  // Prevent body scroll while drawer is open
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
-// Mobile submenu accordion (desktop uses :hover)
+// Mobile submenu accordion (desktop uses CSS :hover)
 document.querySelectorAll('nav.top .nav-trigger').forEach(trig=>{
   trig.addEventListener('click', e=>{
     if(window.innerWidth <= 980){
       e.preventDefault();
       const li = trig.closest('li.has-sub');
-      // close other open submenus
+      // Close other open submenus
       document.querySelectorAll('nav.top li.has-sub.open').forEach(other=>{
         if(other !== li) other.classList.remove('open');
       });
@@ -3034,26 +3134,27 @@ document.querySelectorAll('nav.top a, footer a, .cta-btn').forEach(a=>{
       e.preventDefault();
       const target = document.querySelector(href);
       if(target){
-        const top = target.getBoundingClientRect().top + window.scrollY - 70;
+        const navH = document.querySelector('nav.top').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH - 8;
         window.scrollTo({top, behavior:'smooth'});
-        // close mobile menu after click
-        navMenu.classList.remove('open');
-        navBurger.classList.remove('open');
-        document.querySelectorAll('nav.top li.has-sub.open').forEach(li=>li.classList.remove('open'));
+        // Close mobile menu after navigating
+        closeMobileMenu();
       }
     }
   });
 });
 
-// Close mobile menu when clicking outside
+// Close mobile menu when clicking outside the nav
 document.addEventListener('click', e=>{
   if(window.innerWidth <= 980 && navMenu.classList.contains('open')){
     if(!e.target.closest('nav.top')){
-      navMenu.classList.remove('open');
-      navBurger.classList.remove('open');
+      closeMobileMenu();
     }
   }
 });
+
+// Re-sync nav height if fonts/layout shift on load
+window.addEventListener('load', syncNavHeight);
 </script>
 
 </body>
