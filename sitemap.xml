@@ -2,15 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
-  <!--
-    Single-page application: Google recommends listing only the canonical
-    root URL in the sitemap. Fragment (#section) URLs are ignored by crawlers.
-  -->
+  <!-- ======================================================
+       SDR Playbook — Sitemap
+       Single-page app: canonical root only (no #fragment URLs)
+       Legal pages indexed as separate canonical URLs
+       ====================================================== -->
+
+  <!-- Main playbook (homepage) -->
   <url>
     <loc>https://sdrplaybook.com/</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://sdrplaybook.com/privacy.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Terms of Use -->
+  <url>
+    <loc>https://sdrplaybook.com/terms.html</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 
 </urlset>

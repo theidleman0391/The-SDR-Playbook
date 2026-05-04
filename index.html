@@ -259,29 +259,14 @@ body{
 .serif{font-family:'Fraunces',serif;font-feature-settings:"ss01","ss02"}
 .mono{font-family:'JetBrains Mono',monospace}
 
-/* ========== TICKER ========== */
-.ticker{
-  background:var(--ink);
-  color:var(--paper);
-  border-bottom:1px solid var(--ink);
-  overflow:hidden;
-  white-space:nowrap;
-  padding:.55rem 0;
-  font-family:'JetBrains Mono',monospace;
-  font-size:.78rem;
-  letter-spacing:.05em;
-}
-.ticker-track{display:inline-block;animation:scroll 60s linear infinite}
-.ticker-track span{margin:0 1.8rem;opacity:.85}
-.ticker-track .pulse{color:var(--gold)}
-@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.fade-in{transition:none !important}.flip-inner{transition:none !important}}
+@media(prefers-reduced-motion:reduce){.fade-in{transition:none !important}.flip-inner{transition:none !important}}
 
 /* ========== NAV ========== */
 nav.top{
   position:sticky;top:0;z-index:50;
-  background:rgba(244,239,230,.92);
-  backdrop-filter:blur(10px);
+  background:rgba(244,239,230,.72);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   display:flex;justify-content:space-between;align-items:center;
   padding:.9rem 2rem;gap:1.5rem;
@@ -1299,24 +1284,23 @@ section{
 /* ========== FOOTER ========== */
 footer{
   background:var(--ink);color:var(--paper);
-  padding:4rem 2rem 2rem;
+  padding:3.5rem 2rem 2rem;
   margin-top:5rem;
 }
 .footer-inner{max-width:1300px;margin:0 auto}
-.footer-top{
-  display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;
-  padding-bottom:3rem;border-bottom:1px solid rgba(244,239,230,.2);
+.footer-brand{
+  padding-bottom:2rem;
+  border-bottom:1px solid rgba(244,239,230,.2);
+  margin-bottom:1.8rem;
 }
-.footer-top h2{font-family:'Fraunces',serif;font-size:3rem;font-weight:900;letter-spacing:-.03em;line-height:.95}
-.footer-top h2 i{font-style:italic;color:var(--gold);font-weight:500}
-.footer-col h4{font-family:'JetBrains Mono',monospace;font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:1rem}
-.footer-col ul{list-style:none}
-.footer-col li{padding:.3rem 0;font-size:.9rem;opacity:.8}
 .footer-bottom{
-  padding-top:2rem;display:flex;justify-content:space-between;
+  display:flex;justify-content:space-between;align-items:center;
   font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.05em;opacity:.6;
 }
-@media(max-width:780px){.footer-top{grid-template-columns:1fr}.footer-bottom{flex-direction:column;gap:.6rem}}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{color:inherit;text-decoration:none;opacity:.8;transition:opacity .2s}
+.footer-legal a:hover{opacity:1}
+@media(max-width:780px){.footer-bottom{flex-direction:column;gap:.8rem;text-align:center}.footer-legal{justify-content:center}}
 
 /* ========== ANIMATIONS ========== */
 .fade-in{opacity:0;transform:translateY(20px);transition:all .8s cubic-bezier(.4,0,.2,1)}
@@ -1382,26 +1366,6 @@ footer{
 <body>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <span class="pulse">◉ LIVE</span>
-    <span>SDR PIPELINE CONTRIBUTION: 46–73% OF B2B REVENUE</span>
-    <span>•</span>
-    <span>QUOTA ATTAINMENT BENCHMARK: 56–60%</span>
-    <span>•</span>
-    <span>MEDIAN BASE: $55K · OTE: $85K</span>
-    <span>•</span>
-    <span class="pulse">◉ LIVE</span>
-    <span>SDR PIPELINE CONTRIBUTION: 46–73% OF B2B REVENUE</span>
-    <span>•</span>
-    <span>QUOTA ATTAINMENT BENCHMARK: 56–60%</span>
-    <span>•</span>
-    <span>MEDIAN BASE: $55K · OTE: $85K</span>
-    <span>•</span>
-  </div>
-</div>
 
 <!-- NAV -->
 <nav class="top" aria-label="Primary">
@@ -2495,34 +2459,16 @@ footer{
 
 <footer>
   <div class="footer-inner">
-    <div class="footer-top">
-      <div>
-        <h2>The art of opening<br>doors others <i>can't.</i></h2>
-        <p style="margin-top:1rem;opacity:.7;max-width:30rem">A field guide to the role that builds the top of the funnel. Compiled April 2026.</p>
-      </div>
-      <div class="footer-col">
-        <h4>The Playbook</h4>
-        <ul>
-          <li><a href="#role" style="color:inherit;text-decoration:none">The Role</a></li>
-          <li><a href="#skills" style="color:inherit;text-decoration:none">Skills</a></li>
-          <li><a href="#pipeline" style="color:inherit;text-decoration:none">Pipeline</a></li>
-          <li><a href="#stack" style="color:inherit;text-decoration:none">Tech Stack</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Practice</h4>
-        <ul>
-          <li><a href="#frameworks" style="color:inherit;text-decoration:none">Frameworks</a></li>
-          <li><a href="#training" style="color:inherit;text-decoration:none">Training</a></li>
-          <li><a href="#quiz" style="color:inherit;text-decoration:none">Quiz</a></li>
-          <li><a href="#roadmap" style="color:inherit;text-decoration:none">90-Day Ramp</a></li>
-        </ul>
-      </div>
+    <div class="footer-brand">
+      <p class="serif" style="font-size:2rem;font-weight:900;letter-spacing:-.03em;line-height:.95">The art of opening<br>doors others <i>can't.</i></p>
+      <p style="margin-top:1rem;opacity:.7;font-size:.9rem">A field guide to the role that builds the top of the funnel. Compiled April 2026.</p>
     </div>
     <div class="footer-bottom">
-      <span>VOL. I · ISSUE 01 · MMXXVI</span>
-      <span>An interactive field guide</span>
-      <span>End ·</span>
+      <span>© 2026 SDR Playbook — All rights reserved</span>
+      <span class="footer-legal">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Use</a>
+      </span>
     </div>
   </div>
 </footer>
