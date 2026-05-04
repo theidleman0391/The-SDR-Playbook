@@ -245,13 +245,13 @@
   --shadow-sm:0 6px 14px -8px rgba(14,15,12,.4);
 }
 *, *::before, *::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-x:hidden}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{
   font-family:'Inter Tight',sans-serif;
   background:var(--paper);
   color:var(--ink);
   line-height:1.55;
-  overflow-x:hidden;
+  overflow-x:clip;
   background-image:
     radial-gradient(circle at 1px 1px, rgba(14,15,12,0.08) 1px, transparent 0);
   background-size: 28px 28px;
@@ -265,7 +265,7 @@ body{
 :root{ --nav-h: 60px; }
 nav.top{
   position:sticky;top:0;z-index:50;
-  background:rgba(244,239,230,.95);
+  background:rgba(244,239,230,.80);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
@@ -359,17 +359,14 @@ nav.top .burger.open{background:var(--ink);color:var(--paper)}
 @media(max-width:980px){
   nav.top{
     padding:.7rem 1.1rem;
-    background:var(--paper); /* solid — no bleed-through */
-    backdrop-filter:none;
-    -webkit-backdrop-filter:none;
   }
   /* Hide CTA & desktop menu completely */
   nav.top .cta-btn{ display:none !important; }
   nav.top ul.menu{
     /* HIDDEN: completely removed from rendering */
     display:none;
-    /* when .open: fixed panel below the nav */
-    position:fixed;
+    /* when .open: absolute panel below the nav */
+    position:absolute;
     top:var(--nav-h);left:0;right:0;
     background:var(--paper);
     flex-direction:column;
@@ -1402,7 +1399,7 @@ footer{
 
 <!-- NAV -->
 <nav class="top" aria-label="Primary">
-  <a href="#" class="logo" aria-label="SDR Playbook home"><span class="dot"></span>The SDR Playbook</a>
+  <a href="#hero" class="logo" aria-label="SDR Playbook home"><span class="dot"></span>The SDR Playbook</a>
 
   <ul class="menu" id="nav-menu" aria-label="Main navigation">
     <li class="has-sub">
@@ -1448,7 +1445,7 @@ footer{
 </nav>
 
 <!-- HERO -->
-<header class="hero" role="banner">
+<header class="hero" id="hero" role="banner">
   <div class="hero-meta">
     <span>VOL. I · ISSUE 01 · APRIL 2026</span>
     <span>◉ FIELD GUIDE TO PIPELINE CREATION</span>
@@ -2917,7 +2914,6 @@ function closeMobileMenu(){
   navBurger.setAttribute('aria-expanded', 'false');
   navBurger.setAttribute('aria-label', 'Open navigation menu');
   document.querySelectorAll('nav.top li.has-sub.open').forEach(li => li.classList.remove('open'));
-  document.body.style.overflow = '';
 }
 
 // Mobile burger toggle
@@ -2927,10 +2923,14 @@ navBurger.addEventListener('click', ()=>{
   navBurger.querySelector('span').textContent = isOpen ? 'CLOSE' : 'MENU';
   navBurger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   navBurger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
-  // Prevent body scroll while drawer is open
-  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
+// Close mobile menu on scroll
+window.addEventListener('scroll', ()=>{
+  if(window.innerWidth <= 980 && navMenu.classList.contains('open')){
+    closeMobileMenu();
+  }
+}, {passive: true});
 // Mobile submenu accordion (desktop uses CSS :hover)
 document.querySelectorAll('nav.top .nav-trigger').forEach(trig=>{
   trig.addEventListener('click', e=>{
