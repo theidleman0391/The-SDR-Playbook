@@ -339,16 +339,17 @@ nav.top .cta-btn:hover .spark{color:var(--paper)}
 
 /* Mobile burger */
 nav.top .burger{
-  display:none;background:none;border:1px solid var(--line-strong);
-  cursor:pointer;padding:.45rem .5rem;
-  flex-direction:column;justify-content:center;gap:5px;
+  display:none;background:none;border:1px solid var(--ink);
+  cursor:pointer;padding:.45rem .8rem;
+  align-items:center;justify-content:center;
   flex-shrink:0;border-radius:2px;
-  width:38px;height:38px;
+  height:38px;
+  font-family:'JetBrains Mono',monospace;font-size:.75rem;
+  text-transform:uppercase;letter-spacing:.08em;font-weight:700;
+  color:var(--ink);transition:all .2s;
 }
-nav.top .burger span{width:20px;height:2px;background:var(--ink);transition:all .28s cubic-bezier(.4,0,.2,1);display:block;margin:0 auto}
-nav.top .burger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
-nav.top .burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
-nav.top .burger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+nav.top .burger:hover{background:var(--ink);color:var(--paper)}
+nav.top .burger.open{background:var(--ink);color:var(--paper)}
 
 @keyframes mobileMenuIn{
   from{opacity:0;transform:translateY(-8px)}
@@ -559,33 +560,7 @@ section{
   .role-grid ul li span:last-child{white-space:normal;text-align:right}
 }
 
-/* TOGGLE: SDR vs BDR vs AE */
-.role-compare{margin-top:2rem}
-.role-tabs{display:flex;gap:0;margin-bottom:0;border-bottom:1px solid var(--ink)}
-.role-tab{
-  flex:1;padding:1rem 1.3rem;
-  font-family:'JetBrains Mono',monospace;font-size:.85rem;
-  text-transform:uppercase;letter-spacing:.08em;
-  background:transparent;border:1px solid var(--ink);border-bottom:none;
-  cursor:pointer;text-align:left;
-  transition:all .25s;
-  position:relative;
-}
-.role-tab.active{background:var(--ink);color:var(--paper)}
-.role-tab .pos{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:900;display:block;margin-top:.3rem;letter-spacing:-.02em;text-transform:none}
-.role-tab .pos i{font-style:italic;font-weight:500}
-.role-content{
-  border:1px solid var(--ink);border-top:none;
-  padding:2rem;background:var(--paper-2);
-  min-height:280px;
-}
-.role-content[hidden]{display:none}
-.role-content h4{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;margin-bottom:1rem;letter-spacing:-.02em}
-.role-content .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1rem}
-.role-content .stat-card{border-left:3px solid var(--rust);padding-left:1rem}
-.role-content .stat-card strong{font-family:'Fraunces',serif;font-size:2rem;display:block;color:var(--rust)}
-.role-content .stat-card .l{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em}
-@media(max-width:780px){.role-tabs{flex-direction:column}.role-content .grid2{grid-template-columns:1fr}}
+
 
 /* ========== SKILLS WHEEL ========== */
 .skills-wrap{
@@ -1398,14 +1373,14 @@ footer{
   clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
 
-/* ========== FAQ (SEO + accessible disclosure) ========== */
-.faq-list{
+/* ========== ACCORDIONS (Shared for FAQ, Pipeline, Skills) ========== */
+.accordion-list{
   border:1px solid var(--ink);
   background:var(--paper);
 }
-.faq-item{border-bottom:1px solid var(--line)}
-.faq-item:last-child{border-bottom:none}
-.faq-item summary{
+.accordion-item{border-bottom:1px solid var(--line)}
+.accordion-item:last-child{border-bottom:none}
+.accordion-item summary{
   padding:1.4rem 1.7rem;cursor:pointer;
   font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;
   letter-spacing:-.01em;line-height:1.3;
@@ -1413,22 +1388,24 @@ footer{
   list-style:none;
   transition:background .2s;
 }
-.faq-item summary::-webkit-details-marker{display:none}
-.faq-item summary::after{
+.accordion-item summary::-webkit-details-marker{display:none}
+.accordion-item summary::after{
   content:'+';font-family:'JetBrains Mono',monospace;
   font-size:1.4rem;color:var(--rust);font-weight:700;
   transition:transform .25s;flex-shrink:0;
 }
-.faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item summary:hover{background:var(--paper-2)}
-.faq-item[open] summary{background:var(--paper-2);color:var(--rust)}
-.faq-answer{
+.accordion-item[open] summary::after{transform:rotate(45deg)}
+.accordion-item summary:hover{background:var(--paper-2)}
+.accordion-item[open] summary{background:var(--paper-2);color:var(--rust)}
+.accordion-content{
   padding:0 1.7rem 1.4rem;
   font-size:1rem;line-height:1.6;color:rgba(14,15,12,.85);
+  overflow:hidden;
+  transition:height .3s cubic-bezier(.4,0,.2,1), padding .3s cubic-bezier(.4,0,.2,1), opacity .3s cubic-bezier(.4,0,.2,1);
 }
-.faq-answer p{margin-bottom:.8rem}
-.faq-answer p:last-child{margin-bottom:0}
-.faq-answer strong{color:var(--ink)}
+.accordion-content p{margin-bottom:.8rem}
+.accordion-content p:last-child{margin-bottom:0}
+.accordion-content strong{color:var(--ink)}
 
 /* Skip-to-content link (a11y best practice) */
 .skip-link{
@@ -1489,7 +1466,7 @@ footer{
   </a>
 
   <button class="burger" id="nav-burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
-    <span></span><span></span><span></span>
+    <span>MENU</span>
   </button>
 </nav>
 
@@ -1563,39 +1540,42 @@ footer{
     </div>
   </div>
 
-  <div class="role-compare">
-    <div class="role-tabs" role="tablist" aria-label="Role comparison">
-      <button class="role-tab active" data-tab="sdr" role="tab" aria-selected="true" aria-controls="tab-sdr" id="rtab-sdr">SDR <span class="pos">Sales <i>Development</i> Rep</span></button>
-      <button class="role-tab" data-tab="bdr" role="tab" aria-selected="false" aria-controls="tab-bdr" id="rtab-bdr">BDR <span class="pos">Business <i>Development</i> Rep</span></button>
-      <button class="role-tab" data-tab="ae" role="tab" aria-selected="false" aria-controls="tab-ae" id="rtab-ae">AE <span class="pos">Account <i>Executive</i></span></button>
-    </div>
-
-    <div class="role-content" id="tab-sdr" role="tabpanel" aria-labelledby="rtab-sdr">
-      <h4>The inbound qualifier (typically).</h4>
-      <p>Most teams use SDR and BDR interchangeably, but when companies do separate them: <strong>SDRs work inbound</strong> — leads who already raised a hand (form fill, demo request, content download). They respond fast (under 5 minutes is the gold standard), qualify against ICP, and book the meeting. The conversation starts warmer; the conversion rates are higher; the volume is lower per rep.</p>
-      <div class="grid2 mt-2">
-        <div class="stat-card"><strong>$55K</strong><span class="l">Median base salary (US)</span></div>
-        <div class="stat-card"><strong>$85K</strong><span class="l">Median OTE</span></div>
+  <div class="accordion-list" style="margin-top: 2rem;">
+    <details class="accordion-item" open>
+      <summary><span style="font-family:'JetBrains Mono';margin-right:1rem;color:var(--rust)">SDR</span> Sales Development Rep</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">The inbound qualifier (typically).</h4>
+        <p>Most teams use SDR and BDR interchangeably, but when companies do separate them: <strong>SDRs work inbound</strong> — leads who already raised a hand (form fill, demo request, content download). They respond fast (under 5 minutes is the gold standard), qualify against ICP, and book the meeting. The conversation starts warmer; the conversion rates are higher; the volume is lower per rep.</p>
+        <div class="grid2 mt-2" style="margin-top: 1.5rem;">
+          <div class="stat-card"><strong>$55K</strong><span class="l">Median base salary (US)</span></div>
+          <div class="stat-card"><strong>$85K</strong><span class="l">Median OTE</span></div>
+        </div>
       </div>
-    </div>
+    </details>
 
-    <div class="role-content" id="tab-bdr" role="tabpanel" aria-labelledby="rtab-bdr" hidden>
-      <h4>The outbound hunter.</h4>
-      <p><strong>BDRs work outbound</strong> — cold prospects who've never heard of your company. They build target lists from ICP filters, run multi-channel sequences (cold email, cold call, LinkedIn, video), and break into accounts that aren't asking to be broken into. The conversation starts cold; conversion rates are lower; volume per rep is higher. Many companies just call this "SDR" and run both motions inside the same role.</p>
-      <div class="grid2 mt-2">
-        <div class="stat-card"><strong>40–80</strong><span class="l">Cold calls per day</span></div>
-        <div class="stat-card"><strong>30–60</strong><span class="l">Cold emails per day</span></div>
+    <details class="accordion-item">
+      <summary><span style="font-family:'JetBrains Mono';margin-right:1rem;color:var(--rust)">BDR</span> Business Development Rep</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">The outbound hunter.</h4>
+        <p><strong>BDRs work outbound</strong> — cold prospects who've never heard of your company. They build target lists from ICP filters, run multi-channel sequences (cold email, cold call, LinkedIn, video), and break into accounts that aren't asking to be broken into. The conversation starts cold; conversion rates are lower; volume per rep is higher. Many companies just call this "SDR" and run both motions inside the same role.</p>
+        <div class="grid2 mt-2" style="margin-top: 1.5rem;">
+          <div class="stat-card"><strong>40–80</strong><span class="l">Cold calls per day</span></div>
+          <div class="stat-card"><strong>30–60</strong><span class="l">Cold emails per day</span></div>
+        </div>
       </div>
-    </div>
+    </details>
 
-    <div class="role-content" id="tab-ae" role="tabpanel" aria-labelledby="rtab-ae" hidden>
-      <h4>The closer the SDR exists to feed.</h4>
-      <p>The AE picks up where the SDR ends. They run discovery, deliver demos, build the business case, navigate procurement, and sign the contract. The handoff between SDR and AE is the single highest-leverage moment in the revenue org — done right, the AE walks into a meeting already knowing the prospect's pain, timeline, authority, and budget. Done wrong, they're starting from zero and the deal dies.</p>
-      <div class="grid2 mt-2">
-        <div class="stat-card"><strong>18–36mo</strong><span class="l">Typical SDR → AE promotion timeline</span></div>
-        <div class="stat-card"><strong>2–3×</strong><span class="l">AE OTE vs. SDR OTE</span></div>
+    <details class="accordion-item">
+      <summary><span style="font-family:'JetBrains Mono';margin-right:1rem;color:var(--rust)">AE</span> Account Executive</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">The closer the SDR exists to feed.</h4>
+        <p>The AE picks up where the SDR ends. They run discovery, deliver demos, build the business case, navigate procurement, and sign the contract. The handoff between SDR and AE is the single highest-leverage moment in the revenue org — done right, the AE walks into a meeting already knowing the prospect's pain, timeline, authority, and budget. Done wrong, they're starting from zero and the deal dies.</p>
+        <div class="grid2 mt-2" style="margin-top: 1.5rem;">
+          <div class="stat-card"><strong>18–36mo</strong><span class="l">Typical SDR → AE promotion timeline</span></div>
+          <div class="stat-card"><strong>2–3×</strong><span class="l">AE OTE vs. SDR OTE</span></div>
+        </div>
       </div>
-    </div>
+    </details>
   </div>
 </section>
 
@@ -1604,25 +1584,71 @@ footer{
   <div class="section-tag"><span class="num">02</span> Skills &amp; Traits</div>
   <h2 class="section-title">The eight skills that <span class="it">separate</span> top performers from churn.</h2>
 
-  <div class="skills-wrap">
-    <div class="skills-list">
-      <div class="skill-row active" data-skill="0" tabindex="0" role="button" aria-label="Active Listening skill detail"><span class="nm">01</span><span class="skill-name">Active Listening</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="1" tabindex="0" role="button" aria-label="Resilience and Mental Game skill detail"><span class="nm">02</span><span class="skill-name">Resilience &amp; Mental Game</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="2" tabindex="0" role="button" aria-label="Written Communication skill detail"><span class="nm">03</span><span class="skill-name">Written Communication</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="3" tabindex="0" role="button" aria-label="Cold Calling Confidence skill detail"><span class="nm">04</span><span class="skill-name">Cold Calling Confidence</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="4" tabindex="0" role="button" aria-label="Research and Curiosity skill detail"><span class="nm">05</span><span class="skill-name">Research &amp; Curiosity</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="5" tabindex="0" role="button" aria-label="Time Management skill detail"><span class="nm">06</span><span class="skill-name">Time Management</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="6" tabindex="0" role="button" aria-label="Tech-Stack Fluency skill detail"><span class="nm">07</span><span class="skill-name">Tech-Stack Fluency</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="7" tabindex="0" role="button" aria-label="Coachability skill detail"><span class="nm">08</span><span class="skill-name">Coachability</span><span class="arrow">→</span></div>
-    </div>
-
-    <div class="skill-detail" id="skill-detail">
-      <div class="icon">A</div>
-      <h3>Active Listening</h3>
-      <p>The single most underrated SDR skill. The job is not to talk — it's to hear what the prospect actually said versus what you wanted them to say. Top SDRs ask one question, shut up, and let the prospect explain their pain. The next question is built from what they just heard, not from the script.</p>
-      <p>This is what turns a 30-second hangup into a 12-minute discovery call: the prospect feels understood, not pitched.</p>
-      <div class="tip">→ Drill: Record your calls. Count how often you interrupt. Aim for &lt; 2 interruptions per call.</div>
-    </div>
+  <div class="accordion-list">
+    <details class="accordion-item" open>
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">01</span> Active Listening</summary>
+      <div class="accordion-content">
+        <p>The single most underrated SDR skill. The job is not to talk — it's to hear what the prospect actually said versus what you wanted them to say. Top SDRs ask one question, shut up, and let the prospect explain their pain. The next question is built from what they just heard, not from the script.</p>
+        <p>This is what turns a 30-second hangup into a 12-minute discovery call: the prospect feels understood, not pitched.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Record your calls. Count how often you interrupt. Aim for &lt; 2 interruptions per call.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">02</span> Resilience &amp; Mental Game</summary>
+      <div class="accordion-content">
+        <p>You will be hung up on. You will be ghosted. You will hear "no" 40 times before you hear "tell me more." The SDRs who quit do so because they took rejection personally; the ones who stay treat each "no" as one closer to a "yes."</p>
+        <p>The math is brutal but predictable: 40–80 dials = 6–8 conversations = 1–2 meetings booked. Trust the funnel.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: After every "no," log it as a win — you just learned something didn't work.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">03</span> Written Communication</summary>
+      <div class="accordion-content">
+        <p>Cold email is the SDR's scalpel. Subject lines that get opened, openers that don't sound like a template, value propositions in fewer than 50 words, and CTAs that are easy to say yes to. Bad writing = inbox graveyard. Good writing = double-digit reply rates.</p>
+        <p>Your written voice on LinkedIn is your second brand — prospects will Google you before they call you back.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Rewrite a sequence opener you sent last week. Cut it in half. Cut it in half again.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">04</span> Cold Calling Confidence</summary>
+      <div class="accordion-content">
+        <p>They say cold calling is dead. They're wrong — nearly half of B2B buyers still prefer to be contacted by phone. What's dead is the spray-and-pray script-reader. What works is the SDR who picks up the phone with a hypothesis about the prospect's pain and the confidence to lead the conversation.</p>
+        <p>Tone, pace, and pause matter more than wording. Smile when you dial — the prospect can hear it.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Stand up when you call. Yes, really. It changes your voice.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">05</span> Research &amp; Curiosity</summary>
+      <div class="accordion-content">
+        <p>Top SDRs spend 30–40% of their day on research. They know the prospect's recent funding round, who they just hired, what their CEO posted on LinkedIn, and which competitor they currently use. The opener is built from this — not from a template.</p>
+        <p>Curiosity is what separates "Hi {First Name}" from "Saw your team just opened a Singapore office — congrats. Quick thought on what we're seeing with other companies expanding into APAC..."</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Spend 5 minutes on every prospect before you reach out. Find one specific thing to mention.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">06</span> Time Management</summary>
+      <div class="accordion-content">
+        <p>You have 8 hours, 100+ activities to log, calls to make, emails to send, meetings to qualify, a CRM to update, and an AE asking for context. The SDRs who burn out try to do everything. The SDRs who hit quota use time blocking.</p>
+        <p>Power calling blocks. Email blocks. Research blocks. CRM hygiene blocks. Each box is sacred — no Slack, no email, no LinkedIn during a call block.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Block your calendar tomorrow before you leave today.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">07</span> Tech-Stack Fluency</summary>
+      <div class="accordion-content">
+        <p>You will use 8–12 tools every day. CRM, dialer, sequencer, prospecting database, intent platform, video tool, scheduler, conversation intel. Knowing the keyboard shortcuts, the hidden features, and which tool to use when is a competitive advantage.</p>
+        <p>AI agents and AI-augmented workflows are now table stakes — the SDRs who use them ship 3–5× more personalized output than the ones who don't.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Master one new keyboard shortcut per week in your CRM.</p>
+      </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">08</span> Coachability</summary>
+      <div class="accordion-content">
+        <p>Skill gets you hired. Coachability gets you promoted. The best SDRs ask their manager: "What's the one thing I should change about my discovery call this week?" — then they actually do it. The worst defend their current behavior.</p>
+        <p>Feedback is data. Treat call recordings the way an athlete treats game film: not as judgment, but as inputs to get better.</p>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-top:1rem;font-weight:700;">→ Drill: Send your manager one of your recorded calls weekly with the question: "What would you fix?"</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -1730,70 +1756,61 @@ footer{
     Pipeline doesn't happen by accident. Click each stage to see what the SDR actually does, the tools that make it scalable, and the metric that matters.
   </p>
 
-  <div class="pipeline-board">
-    <div class="pipeline-header">
-      <span class="pulse-dot"></span>
-      <span class="ttl">SDR PIPELINE WORKFLOW · 6 STAGES</span>
-      <span class="ttl" id="stage-status">SELECT A STAGE</span>
-    </div>
-    <div class="pipeline-stages" id="pipeline-stages">
-      <div class="stage" data-stage="0">
-        <span class="num">01 / ICP</span>
-        <h4>Define the ICP &amp; Target Account List</h4>
-        <p class="desc">Decide WHO you're going after. Industry, size, geography, tech stack, trigger events. Build a target list of ~500 accounts per segment per SDR.</p>
-        <div class="tools">
-          <span>SalesNav</span><span>ZoomInfo</span><span>Clay</span>
-        </div>
+  <div class="accordion-list">
+    <details class="accordion-item" open>
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">01</span> Target Account List</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">Define the ICP &amp; Target Account List</h4>
+        <p>Decide WHO you're going after. Industry, size, geography, tech stack, trigger events. Build a target list of ~500 accounts per segment per SDR.</p>
+        <div style="margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.8;">Tools: SalesNav · ZoomInfo · Clay</div>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);font-weight:700;">→ KPI: TAL coverage / week — &amp; ICP fit score</p>
       </div>
-      <div class="stage" data-stage="1">
-        <span class="num">02 / RESEARCH</span>
-        <h4>Find the Buyer &amp; Verify Contact Data</h4>
-        <p class="desc">Identify the decision-maker(s) and economic buyer. Verify email + phone. Check for buying triggers (funding, hiring, expansion).</p>
-        <div class="tools">
-          <span>Apollo</span><span>Lusha</span><span>6sense</span>
-        </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">02</span> Research & Verify</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">Find the Buyer &amp; Verify Contact Data</h4>
+        <p>Identify the decision-maker(s) and economic buyer. Verify email + phone. Check for buying triggers (funding, hiring, expansion).</p>
+        <div style="margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.8;">Tools: Apollo · Lusha · 6sense</div>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);font-weight:700;">→ KPI: % of contacts with verified email AND mobile</p>
       </div>
-      <div class="stage" data-stage="2">
-        <span class="num">03 / SEQUENCE</span>
-        <h4>Build the Multi-Channel Cadence</h4>
-        <p class="desc">7–14 step cadence: cold email, call, LinkedIn touch, video DM, voicemail. Each step reinforces the others — never standalone.</p>
-        <div class="tools">
-          <span>Salesloft</span><span>Outreach</span><span>Apollo</span>
-        </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">03</span> Build Cadence</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">Build the Multi-Channel Cadence</h4>
+        <p>7–14 step cadence: cold email, call, LinkedIn touch, video DM, voicemail. Each step reinforces the others — never standalone.</p>
+        <div style="margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.8;">Tools: Salesloft · Outreach · Apollo</div>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);font-weight:700;">→ KPI: Sequence completion rate, channel mix</p>
       </div>
-      <div class="stage" data-stage="3">
-        <span class="num">04 / OUTREACH</span>
-        <h4>Execute &amp; Personalize at Scale</h4>
-        <p class="desc">Send the cadence. Personalize first lines. Pick up the phone. Reach out to inbound leads under 5 minutes — speed-to-lead is the #1 conversion factor.</p>
-        <div class="tools">
-          <span>Orum</span><span>Lavender</span><span>Vidyard</span>
-        </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">04</span> Execute Outreach</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">Execute &amp; Personalize at Scale</h4>
+        <p>Send the cadence. Personalize first lines. Pick up the phone. Reach out to inbound leads under 5 minutes — speed-to-lead is the #1 conversion factor.</p>
+        <div style="margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.8;">Tools: Orum · Lavender · Vidyard</div>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);font-weight:700;">→ KPI: Reply rate (10%+), connect rate (6%+), response time</p>
       </div>
-      <div class="stage" data-stage="4">
-        <span class="num">05 / QUALIFY</span>
-        <h4>Run Discovery &amp; Apply BANT / MEDDIC</h4>
-        <p class="desc">Book the call. Open with their pain, not your pitch. Qualify against your framework. Disqualify fast — bad fits poison the AE pipeline.</p>
-        <div class="tools">
-          <span>Zoom</span><span>Gong</span><span>Chili Piper</span>
-        </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">05</span> Run Discovery</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">Run Discovery &amp; Apply BANT / MEDDIC</h4>
+        <p>Book the call. Open with their pain, not your pitch. Qualify against your framework. Disqualify fast — bad fits poison the AE pipeline.</p>
+        <div style="margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.8;">Tools: Zoom · Gong · Chili Piper</div>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);font-weight:700;">→ KPI: Show rate (>75%), SQL conversion (>35%)</p>
       </div>
-      <div class="stage" data-stage="5">
-        <span class="num">06 / HANDOFF</span>
-        <h4>Hand Off to the Account Executive</h4>
-        <p class="desc">Transcript the call, log everything in the CRM, write a tight summary: pain · authority · timeline · what to confirm next. The AE walks in armed.</p>
-        <div class="tools">
-          <span>Salesforce</span><span>HubSpot</span><span>Gong</span>
-        </div>
+    </details>
+    <details class="accordion-item">
+      <summary><span style="color:var(--rust);margin-right:1rem;font-family:'JetBrains Mono'">06</span> AE Handoff</summary>
+      <div class="accordion-content">
+        <h4 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:.5rem;">Hand Off to the Account Executive</h4>
+        <p>Transcript the call, log everything in the CRM, write a tight summary: pain · authority · timeline · what to confirm next. The AE walks in armed.</p>
+        <div style="margin-bottom:1rem;font-family:'JetBrains Mono',monospace;font-size:.75rem;opacity:.8;">Tools: Salesforce · HubSpot · Gong</div>
+        <p style="font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);font-weight:700;">→ KPI: AE acceptance rate (>80%), meeting → opportunity rate</p>
       </div>
-    </div>
-    <div class="pipeline-output" id="pipeline-output">
-      <div class="icon-big">i</div>
-      <div>
-        <h4>Click any stage above</h4>
-        <p>Each stage has a specific output, a clear KPI, and a tool category that makes it scalable. Hover to preview, click to lock the detail panel.</p>
-        <div class="key">→ The bottleneck is almost always Stage 04: outreach volume + quality</div>
-      </div>
-    </div>
+    </details>
   </div>
 </section>
 
@@ -2433,80 +2450,80 @@ footer{
     The most common questions about the Sales Development Representative role — the meaning, the path, the salary, the difference vs. BDR and AE.
   </p>
 
-  <div class="faq-list">
-    <details class="faq-item" open>
+  <div class="accordion-list">
+    <details class="accordion-item" open>
       <summary>What is an SDR (Sales Development Representative)?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p>A <strong>Sales Development Representative (SDR)</strong> is a sales professional responsible for the top of the sales funnel — researching prospects, making first contact, qualifying leads against the Ideal Customer Profile (ICP), and booking qualified meetings for Account Executives to close. SDRs do not close deals themselves; they own pipeline creation.</p>
         <p>If the AE is the surgeon performing the operation, the SDR is the diagnostician — identifying who has the problem, determining whether the solution is the right cure, and prepping the patient for the operating room.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What does SDR stand for?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p><strong>SDR stands for Sales Development Representative.</strong> The role is sometimes used interchangeably with BDR (Business Development Representative), though SDRs typically focus on inbound lead qualification while BDRs typically focus on outbound cold prospecting. Many companies use the titles interchangeably.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What is the difference between an SDR and a BDR?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p><strong>SDRs typically handle inbound leads</strong> — prospects who already raised a hand through a form fill, demo request, or content download. They respond fast (under 5 minutes is the gold standard), qualify against ICP, and book the meeting.</p>
         <p><strong>BDRs typically handle outbound prospecting</strong> — cold outreach to prospects who have never engaged with the company. They build target lists, run multi-channel sequences, and break into accounts that aren't asking to be broken into.</p>
         <p>Many companies just call this single role "SDR" and run both motions inside it.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What is the difference between an SDR and an AE?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p>An <strong>SDR</strong> owns the top of the funnel: qualifying prospects and booking meetings. An <strong>AE (Account Executive)</strong> takes those qualified meetings, runs discovery, delivers demos, builds the business case, and closes deals. The typical SDR-to-AE promotion timeline is <strong>18–36 months</strong>, with AE OTE usually 2–3× that of an SDR.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What skills does a Sales Development Representative need?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p>Top SDRs combine <strong>eight core skills</strong>:</p>
         <p>(1) Active listening, (2) resilience and mental game, (3) written communication, (4) cold calling confidence, (5) research and curiosity, (6) time management, (7) tech-stack fluency, and (8) coachability.</p>
         <p>The role is high-volume and high-rejection, so resilience and a daily practice routine matter as much as technique.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What is BANT in sales qualification?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p><strong>BANT stands for Budget, Authority, Need, and Timing.</strong> It's the classic SDR-level qualification framework used to assess whether a prospect is real and ready: do they have the budget, the authority to decide, a genuine need, and a real timeline to act?</p>
         <p>BANT is fast and best for SDR triage on the first call. Most teams hand off to MEDDIC for deeper qualification once the AE takes over.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What is MEDDIC?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p><strong>MEDDIC stands for Metrics, Economic Buyer, Decision Criteria, Decision Process, Identify Pain, and Champion.</strong> It is a deeper qualification framework used in complex enterprise deals — typically applied by AEs after the SDR's initial BANT-level qualification.</p>
         <p>MEDDIC is best for enterprise deals over $100K ACV with sales cycles of 90+ days.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What is the average SDR salary?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p>In the US, the median SDR base salary is approximately <strong>$55,000</strong>, with on-target earnings (OTE) around <strong>$85,000</strong> when commission is included. Top SaaS markets (San Francisco, New York, Austin) and high-performing reps can earn significantly more.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>How long does it take to ramp a new SDR?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p>Most SDRs require approximately <strong>4 months to fully ramp</strong>. The standard plan is a 90-day curriculum: weeks 1–2 product training, weeks 3–4 tooling and first touches, weeks 5–6 volume and personalization, weeks 7–8 discovery mastery, weeks 9–12 quota attainment.</p>
       </div>
     </details>
 
-    <details class="faq-item">
+    <details class="accordion-item">
       <summary>What tools does a modern SDR use?</summary>
-      <div class="faq-answer">
+      <div class="accordion-content">
         <p>A modern SDR tech stack includes:</p>
         <p><strong>CRM</strong> (Salesforce, HubSpot) · <strong>Sales engagement</strong> (Salesloft, Outreach, Apollo) · <strong>Prospecting database</strong> (ZoomInfo, Apollo, Cognism) · <strong>Dialer</strong> (Orum, Nooks) · <strong>Conversation intelligence</strong> (Gong, Chorus) · <strong>Intent platform</strong> (6sense, Bombora) · <strong>Video tool</strong> (Vidyard, Loom) · <strong>Meeting scheduler</strong> (Chili Piper, Calendly).</p>
         <p>In 2026, AI-augmented workflows and AI SDR agents (11x, Artisan, Regie.ai) are increasingly part of the stack.</p>
@@ -2555,25 +2572,7 @@ footer{
 /* ============================================================
    DATA
    ============================================================ */
-const SKILLS = [
-  {letter:'A', name:'Active Listening', body:'The single most underrated SDR skill. The job is not to talk — it\'s to hear what the prospect actually said versus what you wanted them to say. Top SDRs ask one question, shut up, and let the prospect explain their pain. The next question is built from what they just heard, not from the script.', body2:'This is what turns a 30-second hangup into a 12-minute discovery call: the prospect feels understood, not pitched.', tip:'Drill: Record your calls. Count how often you interrupt. Aim for < 2 interruptions per call.'},
-  {letter:'R', name:'Resilience & Mental Game', body:'You will be hung up on. You will be ghosted. You will hear "no" 40 times before you hear "tell me more." The SDRs who quit do so because they took rejection personally; the ones who stay treat each "no" as one closer to a "yes."', body2:'The math is brutal but predictable: 40–80 dials = 6–8 conversations = 1–2 meetings booked. Trust the funnel.', tip:'Drill: After every "no," log it as a win — you just learned something didn\'t work.'},
-  {letter:'W', name:'Written Communication', body:'Cold email is the SDR\'s scalpel. Subject lines that get opened, openers that don\'t sound like a template, value propositions in fewer than 50 words, and CTAs that are easy to say yes to. Bad writing = inbox graveyard. Good writing = double-digit reply rates.', body2:'Your written voice on LinkedIn is your second brand — prospects will Google you before they call you back.', tip:'Drill: Rewrite a sequence opener you sent last week. Cut it in half. Cut it in half again.'},
-  {letter:'C', name:'Cold Calling Confidence', body:'They say cold calling is dead. They\'re wrong — nearly half of B2B buyers still prefer to be contacted by phone. What\'s dead is the spray-and-pray script-reader. What works is the SDR who picks up the phone with a hypothesis about the prospect\'s pain and the confidence to lead the conversation.', body2:'Tone, pace, and pause matter more than wording. Smile when you dial — the prospect can hear it.', tip:'Drill: Stand up when you call. Yes, really. It changes your voice.'},
-  {letter:'R', name:'Research & Curiosity', body:'Top SDRs spend 30–40% of their day on research. They know the prospect\'s recent funding round, who they just hired, what their CEO posted on LinkedIn, and which competitor they currently use. The opener is built from this — not from a template.', body2:'Curiosity is what separates "Hi {First Name}" from "Saw your team just opened a Singapore office — congrats. Quick thought on what we\'re seeing with other companies expanding into APAC..."', tip:'Drill: Spend 5 minutes on every prospect before you reach out. Find one specific thing to mention.'},
-  {letter:'T', name:'Time Management', body:'You have 8 hours, 100+ activities to log, calls to make, emails to send, meetings to qualify, a CRM to update, and an AE asking for context. The SDRs who burn out try to do everything. The SDRs who hit quota use time blocking.', body2:'Power calling blocks. Email blocks. Research blocks. CRM hygiene blocks. Each box is sacred — no Slack, no email, no LinkedIn during a call block.', tip:'Drill: Block your calendar tomorrow before you leave today.'},
-  {letter:'T', name:'Tech-Stack Fluency', body:'You will use 8–12 tools every day. CRM, dialer, sequencer, prospecting database, intent platform, video tool, scheduler, conversation intel. Knowing the keyboard shortcuts, the hidden features, and which tool to use when is a competitive advantage.', body2:'AI agents and AI-augmented workflows are now table stakes — the SDRs who use them ship 3–5× more personalized output than the ones who don\'t.', tip:'Drill: Master one new keyboard shortcut per week in your CRM.'},
-  {letter:'C', name:'Coachability', body:'Skill gets you hired. Coachability gets you promoted. The best SDRs ask their manager: "What\'s the one thing I should change about my discovery call this week?" — then they actually do it. The worst defend their current behavior.', body2:'Feedback is data. Treat call recordings the way an athlete treats game film: not as judgment, but as inputs to get better.', tip:'Drill: Send your manager one of your recorded calls weekly with the question: "What would you fix?"'},
-];
 
-const PIPELINE = [
-  {title:'Define the ICP & Target Account List', sub:'01 / IDEAL CUSTOMER PROFILE', desc:'Decide WHO you\'re going after. Industry, employee count, geography, tech stack, trigger events. Build a target list of ~500 accounts per segment per SDR. Quality of this list determines everything downstream.', kpi:'KPI: TAL coverage / week — & ICP fit score'},
-  {title:'Find the Buyer & Verify Contact Data', sub:'02 / RESEARCH', desc:'Identify the decision-maker and economic buyer. Verify email + mobile. Check trigger events: funding announced, leadership change, hiring spike, expansion news. Personalization comes from this stage.', kpi:'KPI: % of contacts with verified email AND mobile'},
-  {title:'Build the Multi-Channel Cadence', sub:'03 / SEQUENCE', desc:'A 7–14 step cadence over 2–4 weeks. Cold email + cold call + LinkedIn touch + video DM + voicemail + breakup email. Each step reinforces the others — no channel works alone in 2026.', kpi:'KPI: Sequence completion rate, channel mix'},
-  {title:'Execute & Personalize at Scale', sub:'04 / OUTREACH', desc:'Send the sequence. Personalize the first line. Pick up the phone. For inbound: respond in under 5 minutes — speed-to-lead is the single biggest conversion factor in B2B.', kpi:'KPI: Reply rate (10%+), connect rate (6%+), response time'},
-  {title:'Run Discovery & Apply BANT / MEDDIC', sub:'05 / QUALIFY', desc:'Book the call. Open with the prospect\'s pain, not your pitch. Run BANT or MEDDIC as a guide for conversation, not an interrogation. Disqualify fast — bad fits poison the AE\'s pipeline.', kpi:'KPI: Show rate (>75%), SQL conversion (>35%)'},
-  {title:'Hand Off to the Account Executive', sub:'06 / HANDOFF', desc:'Log the call, write a tight summary: pain · authority · timeline · what to confirm next. The AE walks into their first meeting already armed with everything you learned. This is the highest-leverage moment in the funnel.', kpi:'KPI: AE acceptance rate (>80%), meeting → opportunity rate'},
-];
 
 const QUIZ = [
   {q:'What is an SDR primarily measured on?', opts:[
@@ -2653,74 +2652,6 @@ const counterObs = new IntersectionObserver((entries)=>{
 }, {threshold:.4});
 document.querySelectorAll('[data-counter]').forEach(el=>counterObs.observe(el));
 
-/* ============================================================
-   ROLE TABS
-   ============================================================ */
-document.querySelectorAll('.role-tab').forEach(tab=>{
-  tab.addEventListener('click', ()=>{
-    document.querySelectorAll('.role-tab').forEach(t=>{
-      t.classList.remove('active');
-      t.setAttribute('aria-selected', 'false');
-    });
-    tab.classList.add('active');
-    tab.setAttribute('aria-selected', 'true');
-    document.querySelectorAll('.role-content').forEach(c=>c.hidden = true);
-    document.getElementById('tab-' + tab.dataset.tab).hidden = false;
-  });
-});
-
-/* ============================================================
-   SKILLS — clickable list & detail
-   ============================================================ */
-const skillRows = document.querySelectorAll('.skill-row');
-const skillDetail = document.getElementById('skill-detail');
-function renderSkill(i){
-  const s = SKILLS[i];
-  skillDetail.innerHTML = `
-    <div class="icon">${s.letter}</div>
-    <h3>${s.name}</h3>
-    <p>${s.body}</p>
-    <p>${s.body2}</p>
-    <div class="tip">→ ${s.tip}</div>
-  `;
-}
-skillRows.forEach(row=>{
-  const activate = () => {
-    skillRows.forEach(r=>r.classList.remove('active'));
-    row.classList.add('active');
-    renderSkill(parseInt(row.dataset.skill, 10));
-  };
-  row.addEventListener('mouseenter', activate);
-  row.addEventListener('click', activate);
-  row.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); activate(); } });
-});
-renderSkill(0);
-
-/* ============================================================
-   PIPELINE — clickable stages
-   ============================================================ */
-const stages = document.querySelectorAll('.stage');
-const pipeOut = document.getElementById('pipeline-output');
-const stageStatus = document.getElementById('stage-status');
-function renderStage(i){
-  const s = PIPELINE[i];
-  pipeOut.innerHTML = `
-    <div class="icon-big">${i+1}</div>
-    <div>
-      <h4>${s.title}</h4>
-      <p>${s.desc}</p>
-      <div class="key">→ ${s.kpi}</div>
-    </div>
-  `;
-  stageStatus.textContent = `STAGE 0${i+1} · ${s.sub.split(' / ')[1]}`;
-}
-stages.forEach(s=>{
-  s.addEventListener('click', ()=>{
-    stages.forEach(x=>x.classList.remove('active'));
-    s.classList.add('active');
-    renderStage(parseInt(s.dataset.stage, 10));
-  });
-});
 
 /* ============================================================
    DAY-IN-LIFE — animated clock
@@ -3069,7 +3000,7 @@ const fadeObs = new IntersectionObserver((entries)=>{
       fadeObs.unobserve(e.target);
     }
   });
-}, {threshold:.1});
+}, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
 document.querySelectorAll('section').forEach(s=>{
   s.classList.add('fade-in');
   fadeObs.observe(s);
@@ -3095,6 +3026,7 @@ window.addEventListener('resize', syncNavHeight);
 function closeMobileMenu(){
   navMenu.classList.remove('open');
   navBurger.classList.remove('open');
+  navBurger.querySelector('span').textContent = 'MENU';
   navBurger.setAttribute('aria-expanded', 'false');
   navBurger.setAttribute('aria-label', 'Open navigation menu');
   document.querySelectorAll('nav.top li.has-sub.open').forEach(li => li.classList.remove('open'));
@@ -3105,6 +3037,7 @@ function closeMobileMenu(){
 navBurger.addEventListener('click', ()=>{
   const isOpen = navMenu.classList.toggle('open');
   navBurger.classList.toggle('open');
+  navBurger.querySelector('span').textContent = isOpen ? 'CLOSE' : 'MENU';
   navBurger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   navBurger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   // Prevent body scroll while drawer is open
@@ -3155,6 +3088,73 @@ document.addEventListener('click', e=>{
 
 // Re-sync nav height if fonts/layout shift on load
 window.addEventListener('load', syncNavHeight);
+
+/* ============================================================
+   ACCORDIONS — Smooth & Exclusive
+   ============================================================ */
+document.querySelectorAll('.accordion-list').forEach(list => {
+  const items = list.querySelectorAll('.accordion-item');
+  items.forEach(item => {
+    const summary = item.querySelector('summary');
+    const content = item.querySelector('.accordion-content');
+    if(!summary || !content) return;
+    
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      const isOpen = item.hasAttribute('open');
+      
+      if (!isOpen) {
+        // Close others in this specific list
+        items.forEach(other => {
+          if (other !== item && other.hasAttribute('open')) {
+            const otherContent = other.querySelector('.accordion-content');
+            otherContent.style.height = otherContent.scrollHeight + 'px';
+            otherContent.style.opacity = '1';
+            void otherContent.offsetHeight; // force reflow
+            otherContent.style.height = '0px';
+            otherContent.style.opacity = '0';
+            otherContent.style.paddingBottom = '0px';
+            setTimeout(() => {
+              other.removeAttribute('open');
+              otherContent.style = '';
+            }, 300);
+          }
+        });
+        
+        // Open clicked item
+        item.setAttribute('open', '');
+        content.style.height = '0px';
+        content.style.opacity = '0';
+        content.style.paddingBottom = '0px';
+        void content.offsetHeight;
+        
+        // We use scrollHeight plus some buffer for the bottom padding
+        content.style.height = (content.scrollHeight + 30) + 'px';
+        content.style.opacity = '1';
+        content.style.paddingBottom = '1.4rem';
+        
+        setTimeout(() => {
+          content.style = '';
+        }, 300);
+      } else {
+        // Close clicked item
+        content.style.height = content.scrollHeight + 'px';
+        content.style.opacity = '1';
+        void content.offsetHeight;
+        
+        content.style.height = '0px';
+        content.style.opacity = '0';
+        content.style.paddingBottom = '0px';
+        
+        setTimeout(() => {
+          item.removeAttribute('open');
+          content.style = '';
+        }, 300);
+      }
+    });
+  });
+});
 </script>
 
 </body>
