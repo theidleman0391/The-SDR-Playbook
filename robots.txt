@@ -13,12 +13,16 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# Block AI training crawlers (optional — remove if you want AI training visibility)
+# LLM / AI training crawlers
+# Kept open to benefit from LLM SEO discoverability (llms.txt, llms-full.txt)
 User-agent: GPTBot
-Disallow: /
+Allow: /
 
 User-agent: anthropic-ai
-Disallow: /
+Allow: /
 
 User-agent: CCBot
-Disallow: /
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /

@@ -6,7 +6,7 @@
 
 <!-- ============== PRIMARY SEO ============== -->
 <title>SDR Playbook — The Complete Sales Development Representative Guide (2026)</title>
-<meta name="description" content="The complete SDR playbook for 2026. Learn what a Sales Development Representative does, the skills, tools, pipeline workflow, BANT &amp; MEDDIC frameworks, training resources, cold call scripts, objection handling, and the 90-day ramp plan. Interactive guide." />
+<meta name="description" content="The complete SDR playbook for 2026. Learn what an SDR does, the skills, tools, pipeline workflow, BANT &amp; MEDDIC frameworks, training resources, cold call scripts, and the 90-day ramp plan." />
 <meta name="keywords" content="SDR, sales development representative, SDR playbook, what is an SDR, SDR meaning, SDR vs BDR, SDR training, SDR guide, sales development, cold calling, outbound prospecting, lead qualification, BANT, MEDDIC, SDR skills, SDR career, SDR tech stack, sales development rep, B2B sales, prospecting, sales pipeline" />
 <meta name="author" content="The SDR Playbook" />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
@@ -224,8 +224,10 @@
 </script>
 
 <!-- ============== FONTS ============== -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -273,6 +275,7 @@ body{
 .ticker-track span{margin:0 1.8rem;opacity:.85}
 .ticker-track .pulse{color:var(--gold)}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.fade-in{transition:none !important}.flip-inner{transition:none !important}}
 
 /* ========== NAV ========== */
 nav.top{
@@ -1401,10 +1404,10 @@ footer{
 </div>
 
 <!-- NAV -->
-<nav class="top">
+<nav class="top" aria-label="Primary">
   <a href="#" class="logo" aria-label="SDR Playbook home"><span class="dot"></span>The SDR Playbook</a>
 
-  <ul class="menu" id="nav-menu">
+  <ul class="menu" id="nav-menu" aria-label="Main navigation">
     <li class="has-sub">
       <button class="nav-trigger">Foundations <span class="caret">▼</span></button>
       <ul class="submenu">
@@ -1443,7 +1446,7 @@ footer{
     <span class="spark">◆</span> Generate Script
   </a>
 
-  <button class="burger" id="nav-burger" aria-label="Menu">
+  <button class="burger" id="nav-burger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1519,13 +1522,13 @@ footer{
   </div>
 
   <div class="role-compare">
-    <div class="role-tabs" role="tablist">
-      <button class="role-tab active" data-tab="sdr">SDR <span class="pos">Sales <i>Development</i> Rep</span></button>
-      <button class="role-tab" data-tab="bdr">BDR <span class="pos">Business <i>Development</i> Rep</span></button>
-      <button class="role-tab" data-tab="ae">AE <span class="pos">Account <i>Executive</i></span></button>
+    <div class="role-tabs" role="tablist" aria-label="Role comparison">
+      <button class="role-tab active" data-tab="sdr" role="tab" aria-selected="true" aria-controls="tab-sdr" id="rtab-sdr">SDR <span class="pos">Sales <i>Development</i> Rep</span></button>
+      <button class="role-tab" data-tab="bdr" role="tab" aria-selected="false" aria-controls="tab-bdr" id="rtab-bdr">BDR <span class="pos">Business <i>Development</i> Rep</span></button>
+      <button class="role-tab" data-tab="ae" role="tab" aria-selected="false" aria-controls="tab-ae" id="rtab-ae">AE <span class="pos">Account <i>Executive</i></span></button>
     </div>
 
-    <div class="role-content" id="tab-sdr">
+    <div class="role-content" id="tab-sdr" role="tabpanel" aria-labelledby="rtab-sdr">
       <h4>The inbound qualifier (typically).</h4>
       <p>Most teams use SDR and BDR interchangeably, but when companies do separate them: <strong>SDRs work inbound</strong> — leads who already raised a hand (form fill, demo request, content download). They respond fast (under 5 minutes is the gold standard), qualify against ICP, and book the meeting. The conversation starts warmer; the conversion rates are higher; the volume is lower per rep.</p>
       <div class="grid2 mt-2">
@@ -1534,7 +1537,7 @@ footer{
       </div>
     </div>
 
-    <div class="role-content" id="tab-bdr" hidden>
+    <div class="role-content" id="tab-bdr" role="tabpanel" aria-labelledby="rtab-bdr" hidden>
       <h4>The outbound hunter.</h4>
       <p><strong>BDRs work outbound</strong> — cold prospects who've never heard of your company. They build target lists from ICP filters, run multi-channel sequences (cold email, cold call, LinkedIn, video), and break into accounts that aren't asking to be broken into. The conversation starts cold; conversion rates are lower; volume per rep is higher. Many companies just call this "SDR" and run both motions inside the same role.</p>
       <div class="grid2 mt-2">
@@ -1543,7 +1546,7 @@ footer{
       </div>
     </div>
 
-    <div class="role-content" id="tab-ae" hidden>
+    <div class="role-content" id="tab-ae" role="tabpanel" aria-labelledby="rtab-ae" hidden>
       <h4>The closer the SDR exists to feed.</h4>
       <p>The AE picks up where the SDR ends. They run discovery, deliver demos, build the business case, navigate procurement, and sign the contract. The handoff between SDR and AE is the single highest-leverage moment in the revenue org — done right, the AE walks into a meeting already knowing the prospect's pain, timeline, authority, and budget. Done wrong, they're starting from zero and the deal dies.</p>
       <div class="grid2 mt-2">
@@ -1561,14 +1564,14 @@ footer{
 
   <div class="skills-wrap">
     <div class="skills-list">
-      <div class="skill-row active" data-skill="0"><span class="nm">01</span><span class="skill-name">Active Listening</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="1"><span class="nm">02</span><span class="skill-name">Resilience &amp; Mental Game</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="2"><span class="nm">03</span><span class="skill-name">Written Communication</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="3"><span class="nm">04</span><span class="skill-name">Cold Calling Confidence</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="4"><span class="nm">05</span><span class="skill-name">Research &amp; Curiosity</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="5"><span class="nm">06</span><span class="skill-name">Time Management</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="6"><span class="nm">07</span><span class="skill-name">Tech-Stack Fluency</span><span class="arrow">→</span></div>
-      <div class="skill-row" data-skill="7"><span class="nm">08</span><span class="skill-name">Coachability</span><span class="arrow">→</span></div>
+      <div class="skill-row active" data-skill="0" tabindex="0" role="button" aria-label="Active Listening skill detail"><span class="nm">01</span><span class="skill-name">Active Listening</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="1" tabindex="0" role="button" aria-label="Resilience and Mental Game skill detail"><span class="nm">02</span><span class="skill-name">Resilience &amp; Mental Game</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="2" tabindex="0" role="button" aria-label="Written Communication skill detail"><span class="nm">03</span><span class="skill-name">Written Communication</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="3" tabindex="0" role="button" aria-label="Cold Calling Confidence skill detail"><span class="nm">04</span><span class="skill-name">Cold Calling Confidence</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="4" tabindex="0" role="button" aria-label="Research and Curiosity skill detail"><span class="nm">05</span><span class="skill-name">Research &amp; Curiosity</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="5" tabindex="0" role="button" aria-label="Time Management skill detail"><span class="nm">06</span><span class="skill-name">Time Management</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="6" tabindex="0" role="button" aria-label="Tech-Stack Fluency skill detail"><span class="nm">07</span><span class="skill-name">Tech-Stack Fluency</span><span class="arrow">→</span></div>
+      <div class="skill-row" data-skill="7" tabindex="0" role="button" aria-label="Coachability skill detail"><span class="nm">08</span><span class="skill-name">Coachability</span><span class="arrow">→</span></div>
     </div>
 
     <div class="skill-detail" id="skill-detail">
@@ -2631,8 +2634,12 @@ document.querySelectorAll('[data-counter]').forEach(el=>counterObs.observe(el));
    ============================================================ */
 document.querySelectorAll('.role-tab').forEach(tab=>{
   tab.addEventListener('click', ()=>{
-    document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.role-tab').forEach(t=>{
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
     tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
     document.querySelectorAll('.role-content').forEach(c=>c.hidden = true);
     document.getElementById('tab-' + tab.dataset.tab).hidden = false;
   });
@@ -2654,11 +2661,14 @@ function renderSkill(i){
   `;
 }
 skillRows.forEach(row=>{
-  row.addEventListener('mouseenter', ()=>{
+  const activate = () => {
     skillRows.forEach(r=>r.classList.remove('active'));
     row.classList.add('active');
     renderSkill(parseInt(row.dataset.skill, 10));
-  });
+  };
+  row.addEventListener('mouseenter', activate);
+  row.addEventListener('click', activate);
+  row.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); activate(); } });
 });
 renderSkill(0);
 
@@ -2882,6 +2892,9 @@ if(objGrid){
     const num = String(i+1).padStart(2,'0');
     const card = document.createElement('div');
     card.className = 'flip-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Objection ${i+1}: ${o.quote} — tap to reveal response`);
     card.innerHTML = `
       <div class="flip-inner">
         <div class="flip-front">
@@ -2899,6 +2912,7 @@ if(objGrid){
       </div>
     `;
     card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.classList.toggle('flipped'); } });
     objGrid.appendChild(card);
   });
 }
@@ -3045,8 +3059,10 @@ const navBurger = document.getElementById('nav-burger');
 
 // Mobile burger toggle
 navBurger.addEventListener('click', ()=>{
-  navMenu.classList.toggle('open');
+  const isOpen = navMenu.classList.toggle('open');
   navBurger.classList.toggle('open');
+  navBurger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  navBurger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
 });
 
 // Mobile submenu accordion (desktop uses :hover)
