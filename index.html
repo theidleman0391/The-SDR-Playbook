@@ -245,7 +245,7 @@
   --shadow-sm:0 6px 14px -8px rgba(14,15,12,.4);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   font-family:'Inter Tight',sans-serif;
   background:var(--paper);
@@ -683,7 +683,7 @@ section{
 
 /* ========== TECH STACK ========== */
 .stack-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 260px),1fr));gap:1.3rem;
 }
 .stack-card{
   background:var(--paper-2);
@@ -818,7 +818,7 @@ section{
 
 /* ========== TRAINING / RESOURCES ========== */
 .training-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.3rem;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 320px),1fr));gap:1.3rem;
 }
 .training-card{
   background:var(--paper);
@@ -833,8 +833,15 @@ section{
   background:var(--rust);transform:scaleX(0);transform-origin:left;
   transition:transform .35s;
 }
+.training-card::after{
+  content:'↗';position:absolute;top:1.5rem;right:1.7rem;
+  font-family:'JetBrains Mono',monospace;font-size:1.5rem;
+  color:var(--rust);opacity:0.3;
+  transition:all .35s cubic-bezier(.4,0,.2,1);
+}
 .training-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .training-card:hover::before{transform:scaleX(1)}
+.training-card:hover::after{opacity:1;transform:translate(4px,-4px)}
 .training-card .level{
   display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.7rem;
   text-transform:uppercase;letter-spacing:.08em;
@@ -843,7 +850,7 @@ section{
 }
 .training-card .level.free{background:var(--moss)}
 .training-card .level.paid{background:var(--rust)}
-.training-card h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;margin-bottom:.4rem;letter-spacing:-.02em;line-height:1.05}
+.training-card h3{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:900;margin-bottom:.4rem;letter-spacing:-.02em;line-height:1.05;padding-right:2rem}
 .training-card .provider{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--rust);margin-bottom:.9rem}
 .training-card p{font-size:.92rem;line-height:1.5;margin-bottom:1rem}
 .training-card .meta{
@@ -903,36 +910,6 @@ section{
 .day-row .text .meta{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-top:.3rem}
 @media(max-width:780px){.day-row{grid-template-columns:80px 40px 1fr;gap:.8rem;padding:1rem}}
 
-/* ========== METRICS DASH ========== */
-.metrics-dash{
-  background:var(--ink);color:var(--paper);
-  padding:2.5rem;
-  border:1px solid var(--ink);
-}
-.metrics-dash .head{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:2rem;padding-bottom:1.2rem;
-  border-bottom:1px solid rgba(244,239,230,.2);
-}
-.metrics-dash .head h3{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;letter-spacing:-.02em}
-.metrics-dash .head .live{
-  font-family:'JetBrains Mono',monospace;font-size:.75rem;
-  background:var(--rust);padding:.3rem .7rem;letter-spacing:.08em;
-  display:flex;align-items:center;gap:.5rem;
-}
-.metrics-dash .head .live .d{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:blink 1.5s infinite}
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
-.metric-card{
-  border:1px solid rgba(244,239,230,.18);padding:1.3rem;
-  position:relative;cursor:default;transition:all .3s;
-}
-.metric-card:hover{background:rgba(244,239,230,.04);border-color:var(--gold)}
-.metric-card .lbl{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:.6rem}
-.metric-card .val{font-family:'Fraunces',serif;font-size:2.6rem;font-weight:900;letter-spacing:-.03em;line-height:1;color:var(--gold)}
-.metric-card .ben{font-family:'JetBrains Mono',monospace;font-size:.7rem;margin-top:.4rem;opacity:.7}
-.metric-card .bar{height:3px;background:rgba(244,239,230,.15);margin-top:.7rem;overflow:hidden}
-.metric-card .bar-fill{height:100%;background:var(--gold);width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
-@media(max-width:780px){.metrics-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ========== ROADMAP ========== */
 .roadmap{position:relative;padding:1rem 0}
@@ -1113,7 +1090,7 @@ section{
 @media(max-width:780px){.laer-frame{grid-template-columns:1fr;gap:1rem}.laer-frame .laer-letters span{font-size:2.4rem}}
 
 .objection-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 280px),1fr));
   gap:1rem;
 }
 .flip-card{
@@ -1174,9 +1151,9 @@ section{
 }
 
 /* ========== ROLE-PLAY DRILLS ========== */
-.drills-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:1.2rem;
+.drill-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 300px),1fr));
+  gap:1.5rem;
 }
 .drill-card{
   background:var(--paper);
@@ -1242,7 +1219,7 @@ section{
 .routine-content{padding:2rem;min-height:280px}
 .routine-content[hidden]{display:none}
 .routine-content h4{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:900;letter-spacing:-.02em;margin-bottom:1.2rem}
-.routine-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.routine-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%, 240px),1fr));gap:1.2rem}
 .routine-item{
   border-left:3px solid var(--rust);padding:.6rem 1rem;
   background:var(--paper);
@@ -1442,7 +1419,6 @@ footer{
         <li><a href="#pipeline"><span>6-Stage Workflow</span><span class="num">04</span></a></li>
         <li><a href="#stack"><span>Tech Stack</span><span class="num">05</span></a></li>
         <li><a href="#frameworks"><span>BANT vs MEDDIC</span><span class="num">06</span></a></li>
-        <li><a href="#metrics"><span>Metrics That Matter</span><span class="num">07</span></a></li>
       </ul>
     </li>
 
@@ -2006,68 +1982,6 @@ footer{
   </p>
 </section>
 
-<!-- ===== METRICS DASHBOARD ===== -->
-<section id="metrics">
-  <div class="section-tag"><span class="num">07</span> Metrics That Matter</div>
-  <h2 class="section-title">What gets <span class="it">measured</span> — and what's vanity.</h2>
-
-  <div class="metrics-dash">
-    <div class="head">
-      <h3>SDR Performance Benchmarks <span style="opacity:.5;font-weight:500">/ 2026</span></h3>
-      <div class="live"><span class="d"></span> INDUSTRY MEDIANS</div>
-    </div>
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="lbl">Activity</div>
-        <div class="val" data-target="80">0</div>
-        <div class="ben">Calls + emails / day</div>
-        <div class="bar"><div class="bar-fill" data-fill="80"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">Reply Rate</div>
-        <div class="val" data-target="10" data-suffix="%">0</div>
-        <div class="ben">Cold email · 10%+ = strong</div>
-        <div class="bar"><div class="bar-fill" data-fill="50"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">Connect Rate</div>
-        <div class="val" data-target="6" data-suffix="%">0</div>
-        <div class="ben">Cold call · % live conversations</div>
-        <div class="bar"><div class="bar-fill" data-fill="30"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">Meetings / Mo</div>
-        <div class="val" data-target="20">0</div>
-        <div class="ben">Booked &amp; held quota</div>
-        <div class="bar"><div class="bar-fill" data-fill="65"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">SQL Conv. Rate</div>
-        <div class="val" data-target="35" data-suffix="%">0</div>
-        <div class="ben">Meeting → qualified opportunity</div>
-        <div class="bar"><div class="bar-fill" data-fill="70"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">Pipeline $ / Mo</div>
-        <div class="val" data-target="500" data-prefix="$" data-suffix="K">0</div>
-        <div class="ben">Sourced ARR / month</div>
-        <div class="bar"><div class="bar-fill" data-fill="60"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">Quota Attain.</div>
-        <div class="val" data-target="60" data-suffix="%">0</div>
-        <div class="ben">% of SDRs hitting target</div>
-        <div class="bar"><div class="bar-fill" data-fill="60"></div></div>
-      </div>
-      <div class="metric-card">
-        <div class="lbl">Speed-to-Lead</div>
-        <div class="val" data-target="5" data-suffix="m">0</div>
-        <div class="ben">Inbound response time</div>
-        <div class="bar"><div class="bar-fill" data-fill="95"></div></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===== SCRIPT GENERATOR ===== -->
 <section id="script-builder">
@@ -2261,7 +2175,7 @@ footer{
     Role-play has a bad reputation only because it's usually run badly. Done right — short, focused, peer-led — it's the highest-leverage 15 minutes a sales team spends each week. Here are the five drills that work.
   </p>
 
-  <div class="drills-grid">
+  <div class="drill-grid">
     <div class="drill-card">
       <div class="drill-icon">i</div>
       <div class="drill-meta">
@@ -2666,34 +2580,6 @@ dayRows.forEach(r=>{
   });
 });
 
-/* ============================================================
-   METRICS DASHBOARD
-   ============================================================ */
-const metricObs = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const card = e.target;
-      const valEl = card.querySelector('.val');
-      const target = parseInt(valEl.dataset.target, 10);
-      const suffix = valEl.dataset.suffix || '';
-      const prefix = valEl.dataset.prefix || '';
-      const fillEl = card.querySelector('.bar-fill');
-      const fillTarget = parseInt(fillEl.dataset.fill, 10);
-      const dur = 1400;
-      const start = performance.now();
-      function tick(now){
-        const p = Math.min(1, (now - start)/dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        valEl.textContent = prefix + Math.round(target * eased) + suffix;
-        if(p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      setTimeout(()=>fillEl.style.width = fillTarget + '%', 200);
-      metricObs.unobserve(card);
-    }
-  });
-}, {threshold:.5});
-document.querySelectorAll('.metric-card').forEach(c=>metricObs.observe(c));
 
 /* ============================================================
    SCRIPT GENERATOR
