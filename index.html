@@ -244,7 +244,7 @@
   --shadow:0 20px 50px -20px rgba(14,15,12,.35);
   --shadow-sm:0 6px 14px -8px rgba(14,15,12,.4);
 }
-*{box-sizing:border-box;margin:0;padding:0}
+*, *::before, *::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   font-family:'Inter Tight',sans-serif;
@@ -448,7 +448,7 @@ header.hero{
   header.hero{padding:2.2rem 1.2rem 2rem}
 }
 .hero-meta{
-  display:flex;justify-content:space-between;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;
   font-family:'JetBrains Mono',monospace;
   font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;
   border-top:1px solid var(--ink);
@@ -456,6 +456,7 @@ header.hero{
   padding:.6rem 0;margin-bottom:2.2rem;
 }
 .hero-meta span:nth-child(2){color:var(--rust)}
+@media(max-width:780px){.hero-meta{flex-direction:column;align-items:center;text-align:center;gap:.4rem}}
 .hero h1{
   font-family:'Fraunces',serif;
   font-weight:900;
